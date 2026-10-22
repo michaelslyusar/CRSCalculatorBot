@@ -1,0 +1,24 @@
+# Local Postgres for development. Start it with `docker compose up -d` (or `npm run db:up` in app/).
+# Data is kept in the "crs-pgdata" volume between restarts; `docker compose down -v` wipes it.
+# Credentials match DATABASE_URL in app/.env.development.example.
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: crs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: crs
+      POSTGRES_PASSWORD: crs
+      POSTGRES_DB: crs
+    ports:
+      - "5432:5432"
+    volumes:
+      - crs-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crs -d crs"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  crs-pgdata:

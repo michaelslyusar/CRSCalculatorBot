@@ -1,0 +1,8 @@
+[submodule "app"]
+	path = app
+	url = https://github.com/michaelslyusar/CRSCalculatorApp.git
+	branch = master
+[submodule "bot"]
+	path = bot
+	url = https://github.com/michaelslyusar/CRSCalculatorBotService.git
+	branch = master
